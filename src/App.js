@@ -11,20 +11,22 @@ class App extends Component {
  	};
 
 	handleClick = e => {
-		let userId = null;
-
-		if(e.currentTarget.dataset.id === 0 || e.currentTarget.dataset.id) {
-			userId = e.currentTarget.dataset.id;
-		}
-		const choosenUser = this.state.users.filter(user => user.id == userId);
-		choosenUser.map(user => this.setState({
-			fullName: user.name,
-			email: user.email,
-			phone: user.phone,
-			website: user.website
-		}));
+		const { dataset } = e.currentTarget;
+		let userId = dataset.id === 0 || dataset.id ? dataset.id : null;
+	
+		this.state.users.filter(user => user.id == userId)
+			.map(user => this.setState({
+				fullName: user.name,
+				email: user.email,
+				phone: user.phone,
+				website: user.website
+			}));
 		document.getElementById('dialog').showModal();
 	};
+
+	handleCloseDialog = () => {
+		document.getElementById('dialog').close();
+	}
 
 	componentDidMount() {
 		const uri = 'https://jsonplaceholder.typicode.com/users';
@@ -57,6 +59,10 @@ class App extends Component {
 					)}
 				</ul>
 				<dialog id="dialog">
+					<p 
+						className="close-button"
+						onClick={this.handleCloseDialog}
+					>x</p>
 					<h1>{fullName}</h1>
 					<p>{email}</p>
 					<label>Phone</label>

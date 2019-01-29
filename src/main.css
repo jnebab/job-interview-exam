@@ -1,7 +1,17 @@
+body {
+	margin: 0;
+	padding: 0;
+}
+
+ul {
+	margin: 50px auto 0;
+	width: 340px;
+	padding-left: 0;
+}
+
 li.user {
 	border: 1px solid #000;
 	list-style: none;
-	width: 300px;
 	margin-bottom: 10px;
 	padding: 15px 10px;
 }
@@ -21,5 +31,25 @@ dialog {
 	padding: 20px;
 	top: 0;
 	bottom: 0;
-	right: 70%;
+}
+
+.close-button {
+	float: right;
+}
+
+.close-button:hover {
+	cursor: pointer;
+}
+
+dialog h1 {
+	margin-bottom: 0;
+}
+
+dialog p {
+	margin-top: 0;
+	font-size: 18px;
+}
+
+label {
+	font-size: 14px;
 }
