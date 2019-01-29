@@ -1,0 +1,25 @@
+li.user {
+	border: 1px solid #000;
+	list-style: none;
+	width: 300px;
+	margin-bottom: 10px;
+	padding: 15px 10px;
+}
+
+span.triangle {
+	width: 0;
+	height: 0;
+	border-top: 10px solid transparent;
+	border-left: 20px solid #000;
+	border-bottom: 10px solid transparent;
+	float: right;
+}
+
+dialog {
+	width: 300px;
+	height: 300px;
+	padding: 20px;
+	top: 0;
+	bottom: 0;
+	right: 70%;
+}

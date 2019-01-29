@@ -1,28 +1,72 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './main.css'
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+	state = {
+		users: [],
+		fullName: '',
+		email: '',
+		phone: '',
+		website: ''
+ 	};
+
+	handleClick = e => {
+		let userId = null;
+
+		if(e.currentTarget.dataset.id === 0 || e.currentTarget.dataset.id) {
+			userId = e.currentTarget.dataset.id;
+		}
+		const choosenUser = this.state.users.filter(user => user.id == userId);
+		choosenUser.map(user => this.setState({
+			fullName: user.name,
+			email: user.email,
+			phone: user.phone,
+			website: user.website
+		}));
+		document.getElementById('dialog').showModal();
+	};
+
+	componentDidMount() {
+		const uri = 'https://jsonplaceholder.typicode.com/users';
+		const head = new Headers();
+		const req = new Request(uri, {
+			method: 'GET',
+			headers: head,
+			mode: 'cors'
+		});
+
+		fetch(req)
+			.then(response => response.json())
+			.then(resolvedValue => this.setState({ users: resolvedValue }))
+	};
+
+	render() {
+		const { fullName, email, phone, website } = this.state;
+		return (
+			<div>
+				<ul>
+					{this.state.users.map(user => 
+						<li 
+							className="user" 
+							key={user.id}
+							data-id={user.id}
+							onClick={this.handleClick}
+						>
+							{user.name} <span className="triangle"></span>
+						</li>
+					)}
+				</ul>
+				<dialog id="dialog">
+					<h1>{fullName}</h1>
+					<p>{email}</p>
+					<label>Phone</label>
+					<p>{phone}</p>
+					<label>Website</label>
+					<p>{website}</p>
+				</dialog>
+			</div>
+		)
+	}
 }
 
 export default App;
